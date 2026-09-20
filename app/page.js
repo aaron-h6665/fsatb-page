@@ -18,7 +18,7 @@ function TaskCreateCard( { } ) {
   }
 
   function handleCreate() {
-    
+
   }
 
   return (
@@ -50,18 +50,16 @@ function TaskCreateCard( { } ) {
           type="button"
           className=""
           onClick={handleCancel}
-        />
-        <p className="" aria-live="polite">
+        >
           Cancel
-        </p>
+        </button>
         <button
           type="button"
           className=""
           onClick={handleCreate}
-        />
-        <p className="" aria-live="polite">
+        >
           Create
-        </p>
+        </button>
       </div>
     </div>
   )
