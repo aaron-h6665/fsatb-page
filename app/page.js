@@ -9,11 +9,52 @@ function addButton( { children, onClick }) {
   )
 }
 
+function taskCreateCard( { } ) {
+
+}
+
+function handleComplete() {
+  setComplete(true);
+}
+
+function Checkbox() {
+  const [checked, setChecked] = useState(false);
+  
+  return (
+    <label className="flex items-center gap-3 cursor-pointer">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+        className="w-5 h-5 accent-black cursor-pointer"
+      />
+      <span className={checked ? "text-white-400 line-through" : "text-black"}>
+        Mark as complete
+      </span>
+    </label>
+  )
+}
+
+
+
 // To-Do List
 function ToDoCard( { id, title, timeDue } ) {
   const [completed, setCompleted] = useState(false);
 
-  
+  return (
+    <article className="">
+      <div className="">
+
+      </div>
+      <div>
+
+      </div>
+      <div>
+
+      </div>
+    </article>
+  )
+
 }
 
 function Header() {
@@ -35,14 +76,6 @@ export default function Home() {
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Header></Header>
       <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the{" "}
