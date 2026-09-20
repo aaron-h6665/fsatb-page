@@ -22,40 +22,47 @@ function TaskCreateCard( { } ) {
   }
 
   return (
-    <div className="">
-      <label htmlFor="task-input" className="text-sm font-medium text-gray-700">
-        Task
-      </label>
-      <input
-        id="task-input"
-        type="text"
-        placeholder="Your task..."
-        value={taskText} 
-        onChange={(e) => setTaskText(e.target.value)} 
-        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-      />
-      <label htmlFor="due-date-input" className="text-sm font-medium text-gray-700">
-        Due Date
-      </label>
-      <input
-        id="due-date-input"
-        type="text"
-        placeholder="Due Date..."
-        value={dueDateText} 
-        onChange={(e) => setDueDateText(e.target.value)} 
-        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-      />
-      <div>
+    <div className="w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="task-input" className="text-sm font-medium text-gray-700">
+            Task
+          </label>
+          <input
+            id="task-input"
+            type="text"
+            placeholder="Your task..."
+            value={taskText} 
+            onChange={(e) => setTaskText(e.target.value)} 
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="due-date-input" className="text-sm font-medium text-gray-700">
+            Due Date
+          </label>
+          <input
+            id="due-date-input"
+            type="text"
+            placeholder="Due Date..."
+            value={dueDateText} 
+            onChange={(e) => setDueDateText(e.target.value)} 
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-end gap-3 pt-2">
         <button
           type="button"
-          className=""
+          className="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors"
           onClick={handleCancel}
         >
           Cancel
         </button>
         <button
           type="button"
-          className=""
+          className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
           onClick={handleCreate}
         >
           Create
