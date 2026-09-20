@@ -1,9 +1,40 @@
-import Image from "next/image";
+'use client'
 
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+function addButton( { children, onClick }) {
+  return (
+    <button onClick={onClick} className="px-4 py-2 rounded-md font-medium transition-all bg-blue-500 text-white hover:bg-blue-600"> </button>
+  )
+}
+
+// To-Do List
+function ToDoCard( { id, title, timeDue } ) {
+  const [completed, setCompleted] = useState(false);
+
+  
+}
+
+function Header() {
+  return (
+    <header className="w-full flex items-center justify-between py-4 px-20 bg-white">
+      <a className="flex items-center gap-3 text-4xl font-bold text-grey-900" href="#home">
+        {/* <span className="flex items-center justify-center w-8 h-8 bg-black text-white rounded-md">A</span> */}
+        Task Planner
+      </a>
+      <nav aria-label="Main Navigation" className="flex items-center gap-6">
+        <a className="text-sm font-medium text-gray-600 hover:text-black transition-colors" href="#about">About</a>
+        <a className="text-sm font-medium text-gray-600 hover:text-black transition-colors" href="#about">Contact</a>
+      </nav>
+    </header>
+  )
+}
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+      <Header></Header>
+      <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert h-5 w-[100px]"
           src="/next.svg"
