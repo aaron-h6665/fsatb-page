@@ -3,23 +3,47 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-function addButton( { children, onClick }) {
+function AddButton() {
+  function createCard() {
+    setTasks = [TaskCreateCard]
+  }
+
   return (
-    <button onClick={onClick} className="px-4 py-2 rounded-md font-medium transition-all bg-blue-500 text-white hover:bg-blue-600"> </button>
+    <button
+          type="button"
+          className="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors"
+          onClick={createCard}
+    >
+      Add Task
+    </button>
   )
 }
 
-function TaskCreateCard( { } ) {
-  const [taskText, setTaskText] = useState("");
-  const [dueDateText, setDueDateText] = useState("");
+function TaskDashboard( { }){
+  const [tasks, setTasks] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
+
 
   function handleCancel() {
-
+    setIsCreating(false);
   }
 
-  function handleCreate() {
-
+  function handleCreate( { taskName, dueDate }) {
+    const newTask = {
+      id: crypto.randomUUID(), // Generate unique ID
+      title: taskName,
+      due: dueDate,
+      isCompleted: false
+    };
+    setTasks([...tasks, newTask]); // replace old array with new array containing new task
+    setIsCreating(false);
   }
+
+}
+
+function TaskCreateCard( { onCancel, onCreate } ) {
+  const [taskText, setTaskText] = useState("");
+  const [dueDateText, setDueDateText] = useState("");
 
   return (
     <div className="w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col gap-6">
@@ -113,6 +137,8 @@ function ToDoCard( { id, title, timeDue } ) {
 }
 
 function Header() {
+  const [tasks, setTasks] = useState("");
+  
   return (
     <header className="w-full flex items-center justify-between py-4 px-20 bg-white">
       <a className="flex items-center gap-3 text-4xl font-bold text-grey-900" href="#home">
@@ -131,6 +157,7 @@ export default function Home() {
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Header></Header>
       <TaskCreateCard></TaskCreateCard>
+      <AddButton></AddButton>
       <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
