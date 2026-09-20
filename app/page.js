@@ -10,13 +10,25 @@ function addButton( { children, onClick }) {
 }
 
 function taskCreateCard( { } ) {
+  return (
+    <div className="">
+      <input>
+      </input>
+      <input>
+      </input>
+      <input>
+      </input>
+      <div>
+        <button>
 
+        </button>
+        <button>
+
+        </button>
+      </div>
+    </div>
+  )
 }
-
-function handleComplete() {
-  setComplete(true);
-}
-
 function Checkbox() {
   const [checked, setChecked] = useState(false);
   
