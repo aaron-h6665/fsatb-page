@@ -13,6 +13,14 @@ function TaskCreateCard( { } ) {
   const [taskText, setTaskText] = useState("");
   const [dueDateText, setDueDateText] = useState("");
 
+  function handleCancel() {
+
+  }
+
+  function handleCreate() {
+    
+  }
+
   return (
     <div className="">
       <label htmlFor="task-input" className="text-sm font-medium text-gray-700">
@@ -38,12 +46,22 @@ function TaskCreateCard( { } ) {
         className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
       />
       <div>
-        <button>
-          
-        </button>
-        <button>
-
-        </button>
+        <button
+          type="button"
+          className=""
+          onClick={handleCancel}
+        />
+        <p className="" aria-live="polite">
+          Cancel
+        </p>
+        <button
+          type="button"
+          className=""
+          onClick={handleCreate}
+        />
+        <p className="" aria-live="polite">
+          Create
+        </p>
       </div>
     </div>
   )
@@ -107,6 +125,7 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Header></Header>
+      <TaskCreateCard></TaskCreateCard>
       <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
