@@ -9,18 +9,37 @@ function addButton( { children, onClick }) {
   )
 }
 
-function taskCreateCard( { } ) {
+function TaskCreateCard( { } ) {
+  const [taskText, setTaskText] = useState("");
+  const [dueDateText, setDueDateText] = useState("");
+
   return (
     <div className="">
-      <input>
-      </input>
-      <input>
-      </input>
-      <input>
-      </input>
+      <label htmlFor="task-input" className="text-sm font-medium text-gray-700">
+        Task
+      </label>
+      <input
+        id="task-input"
+        type="text"
+        placeholder="Your task..."
+        value={taskText} 
+        onChange={(e) => setTaskText(e.target.value)} 
+        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+      />
+      <label htmlFor="due-date-input" className="text-sm font-medium text-gray-700">
+        Due Date
+      </label>
+      <input
+        id="due-date-input"
+        type="text"
+        placeholder="Due Date..."
+        value={dueDateText} 
+        onChange={(e) => setDueDateText(e.target.value)} 
+        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+      />
       <div>
         <button>
-
+          
         </button>
         <button>
 
@@ -29,6 +48,7 @@ function taskCreateCard( { } ) {
     </div>
   )
 }
+
 function Checkbox() {
   const [checked, setChecked] = useState(false);
   
