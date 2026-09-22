@@ -1,47 +1,8 @@
 'use client'
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-function AddButton() {
-  function createCard() {
-    setTasks = [TaskCreateCard]
-  }
-
-  return (
-    <button
-          type="button"
-          className="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors"
-          onClick={createCard}
-    >
-      Add Task
-    </button>
-  )
-}
-
-function TaskDashboard( { }){
-  const [tasks, setTasks] = useState([]);
-  const [isCreating, setIsCreating] = useState(false);
-
-
-  function handleCancel() {
-    setIsCreating(false);
-  }
-
-  function handleCreate( { taskName, dueDate }) {
-    const newTask = {
-      id: crypto.randomUUID(), // Generate unique ID
-      title: taskName,
-      due: dueDate,
-      isCompleted: false
-    };
-    setTasks([...tasks, newTask]); // replace old array with new array containing new task
-    setIsCreating(false);
-  }
-
-}
-
-function TaskCreateCard( { onCancel, onCreate } ) {
+function TaskCreateCard( { onCreate, onCancel } ) {
   const [taskText, setTaskText] = useState("");
   const [dueDateText, setDueDateText] = useState("");
 
@@ -80,14 +41,19 @@ function TaskCreateCard( { onCancel, onCreate } ) {
         <button
           type="button"
           className="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors"
-          onClick={handleCancel}
+          onClick={onCancel}
         >
           Cancel
         </button>
         <button
           type="button"
           className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
-          onClick={handleCreate}
+          onClick={() =>
+            onCreate({
+              title: taskText,
+              dueDate: dueDateText,
+            })
+          }
         >
           Create
         </button>
@@ -114,12 +80,13 @@ function Checkbox() {
   )
 }
 
-
-
 // To-Do List
-function ToDoCard( { id, title, timeDue } ) {
+function ToDoCard( { task, onToggle } ) {
   const [completed, setCompleted] = useState(false);
 
+  checked={task.isCompleted}
+  onChange={() => onToggle(task.id)}
+  className={task.isCompleted ? "line-through" : ""}
   return (
     <article className="">
       <div className="">
@@ -137,8 +104,6 @@ function ToDoCard( { id, title, timeDue } ) {
 }
 
 function Header() {
-  const [tasks, setTasks] = useState("");
-  
   return (
     <header className="w-full flex items-center justify-between py-4 px-20 bg-white">
       <a className="flex items-center gap-3 text-4xl font-bold text-grey-900" href="#home">
@@ -152,65 +117,83 @@ function Header() {
     </header>
   )
 }
+
+
+
+function TaskDashboard( { tasks, onToggle } ){
+  return(
+    {tasks.map((task) => (
+      <ToDoCard
+        key={task.id}
+        task={task}
+        onToggle={onToggle}
+      />
+    ))}
+  )
+}
+
+  // put things into home (state variables so that all of the components can access)
+  // handleCancel, handleCreate, 
+  // layout 
+
+  // handleAdd() {}
+
+  function handleCancel() {
+    setIsCreating(false);
+  }
+
+
+
+function AddButton( { onAdd }) {
+  return (
+    <button
+        type="button"
+        className="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors"
+        onClick={onAdd}
+    >
+      Add Task
+    </button>
+    )
+}
+
 export default function Home() {
+  const [tasks, setTasks] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
+
+  function handleCreate( { title, dueDate }) {
+    const newTask = {
+      id: crypto.randomUUID(), // Generate unique ID
+      title,
+      dueDate,
+      isCompleted: false,
+    };
+
+    setTasks([...tasks, newTask]); // replace old array with new array containing new task
+    setIsCreating(false);
+  }
+
+  function handleToggle(taskId) {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === taskId
+          ? { ...task, isCompleted: !task.isCompleted }
+          : task
+      )
+    );
+  }
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Header></Header>
-      <TaskCreateCard></TaskCreateCard>
-      <AddButton></AddButton>
-      <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      <TaskDashboard tasks={tasks} onToggle={handleToggle} />
+      {isCreating ? (
+        <TaskCreateCard
+          onCreate={handleCreate}
+          onCancel={() => setIsCreating(false)}
+        />
+      ) : (
+        <AddButton onAdd={() => setIsCreating(true)} />
+      )}
     </div>
   );
 }
