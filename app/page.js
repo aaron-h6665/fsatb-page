@@ -62,45 +62,30 @@ function TaskCreateCard( { onCreate, onCancel } ) {
   )
 }
 
-function Checkbox() {
-  const [checked, setChecked] = useState(false);
-  
-  return (
-    <label className="flex items-center gap-3 cursor-pointer">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-        className="w-5 h-5 accent-black cursor-pointer"
-      />
-      <span className={checked ? "text-white-400 line-through" : "text-black"}>
-        Mark as complete
-      </span>
-    </label>
-  )
-}
-
 // To-Do List
 function ToDoCard( { task, onToggle } ) {
-  const [completed, setCompleted] = useState(false);
-
-  checked={task.isCompleted}
-  onChange={() => onToggle(task.id)}
-  className={task.isCompleted ? "line-through" : ""}
   return (
-    <article className="">
-      <div className="">
+    <article className="w-full rounded-lg border border-gray-200 bg-white p-4">
+      <label className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          checked={task.isCompleted}
+          onChange={() => onToggle(task.id)}
+          className="mt-1 h-5 w-5 accent-black"
+        />
 
-      </div>
-      <div>
+        <div>
+          <h2 className={task.isCompleted ? "line-through text-gray-400" : ""}>
+            {task.title}
+          </h2>
 
-      </div>
-      <div>
-
-      </div>
+          <p className="text-sm text-gray-500">
+            Due: {task.dueDate}
+          </p>
+        </div>
+      </label>
     </article>
-  )
-
+  );
 }
 
 function Header() {
@@ -119,16 +104,27 @@ function Header() {
 }
 
 
-
+// a component must return one JSX element, so we should wrap it in a section or div
 function TaskDashboard( { tasks, onToggle } ){
+  // if there are no tasks yet, show relevant message
+  if (tasks.length === 0) {
+    return (
+      <p className="text-gray-500">
+        No tasks yet. Add your first task.
+      </p>
+    );
+  }
+
   return(
-    {tasks.map((task) => (
-      <ToDoCard
-        key={task.id}
-        task={task}
-        onToggle={onToggle}
-      />
-    ))}
+    <section className="w-full max-w-md flex flex-col gap-3">
+      {tasks.map((task) => (
+        <ToDoCard
+          key={task.id}
+          task={task}
+          onToggle={onToggle}
+        />
+      ))}
+    </section>
   )
 }
 
@@ -137,10 +133,6 @@ function TaskDashboard( { tasks, onToggle } ){
   // layout 
 
   // handleAdd() {}
-
-  function handleCancel() {
-    setIsCreating(false);
-  }
 
 
 
