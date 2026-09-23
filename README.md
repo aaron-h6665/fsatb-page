@@ -10,6 +10,7 @@ First, clone the repository to your local device. Use `git clone https://github.
 Once you are in the folder of the project on your IDE, run the development server by typing this into the terminal:
 
 ```bash
+npm install
 npm run dev
 ```
 
