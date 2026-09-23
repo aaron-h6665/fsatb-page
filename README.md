@@ -5,9 +5,9 @@ This project is a simple task manager. You can add tasks with title and due date
 
 ## Getting Started
 
-First, clone the repository to your local device. Use `git clone https://github.com/aaron-h6665/fsatb-page.git` in the terminal to do this. Enter the folder by using `cd` commands.
+First, clone the repository to your local device. Use `git clone https://github.com/aaron-h6665/fsatb-page.git` in the terminal to do this. Open the folder in VSCode or whatever IDE that you are using.
 
-Once you are in the folder of the project, run the development server:
+Once you are in the folder of the project on your IDE, run the development server by typing this into the terminal:
 
 ```bash
 npm run dev
